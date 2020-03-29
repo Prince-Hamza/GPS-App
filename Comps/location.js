@@ -30,6 +30,7 @@ alert("Permission Granted")
 export const expoLocation = async () => {
   let { status } = await Permissions.askAsync(Permissions.LOCATION);
   if (status !== 'granted') {
+    alert("Permission Denied")
     this.setState({  errorMessage: 'Permission to access location was denied' });
   }
   let location = await Location.getCurrentPositionAsync({});

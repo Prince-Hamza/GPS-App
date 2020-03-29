@@ -1,61 +1,98 @@
 import React, { Component } from 'react';
-import { Text, View , TextInput , StyleSheet , Button } from 'react-native';
+import { Text, View , SafeAreaView , StyleSheet , FlatList } from 'react-native';
+import {Card} from 'react-native-elements'
+import { Actions } from 'react-native-router-flux';
+import { ListItem , Image } from 'react-native-elements';
+import {Selects} from 'queryfire';
 
 
 
 class RideSearch extends Component {
 
-    componentDidMount () {   }
+    async componentDidMount () {  
+      //alert(  this.props.Info)
+
+      var ICstmrz = await Selects ('/Car_Customers');
+      this.setState({Info:ICstmrz , Complete:true})
+     }
 
      constructor () {      
        super() 
        this.state = {     
-
+        Info :[] ,
+        Complete:false
        }
      
      }  
 
+     keyExtractor = (item, index) => index.toString()
+
+     renderItem = ({ item }) => (
+      <ListItem
+        title={item.Name}
+        subtitle={item.Role}
+        onPress = {()=>{    Actions.JustProfile({Me:this.props.Info,  DisplayUser:item})      }}
+        leftAvatar={{
+          source: { uri: 'https://miro.medium.com/max/2560/1*2pESva6Oya2LqZK-QW_B5Q.png' },
+          title: item.Name
+        }}
+        bottomDivider
+        chevron
+      />
+    )
+
   render() {
-    return (
-        <View style={styles.container}>  
-
-        <Text>     Ride Search    </Text>
-
-  
-  
+    if(this.state.Complete) {
+      return (
       
-      </View>
-    );
+        <View>          
+            <FlatList
+            keyExtractor={this.keyExtractor}
+            data={this.state.Info}
+            renderItem={this.renderItem}
+       />
+  
+  
+        </View>    
+      );
+    }
+
+    else {
+      return (
+        <View style = {styles.container}>
+          <Text>
+            Loading...
+          </Text>
+        </View>
+      )
+    }
+
+   
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#FFFFFF',
-    },
-    welcome: {
-      fontSize: 18,  
-      margin: 100,
-      color: '#222',
-      fontFamily:'serif'
-    },
-  
-    searchSection: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#FFFFFF',
-      color:'#222'
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
-
-  
-  
-  
-  });
+  subtitleView: {
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingTop: 5
+  },
+  ratingImage: {
+    height: 19.21,
+    width: 100
+  },
+  ratingText: {
+    paddingLeft: 10,
+    color: 'grey'
+  }
+})
 
 export default RideSearch;
+
 

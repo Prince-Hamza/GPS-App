@@ -7,18 +7,38 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import {Selects} from 'queryfire'
+import publicIP from 'react-native-public-ip';
 
-export default class MyProfile extends Component {
+export default class JustProfile extends Component {
 
-  componentDidMount () {
-    // initiated from Menu components !!
-   // alert( JSON.stringify( this.props.DisplayUser.Name))
+  async componentDidMount () {
+    //alert(this.props.Me)
+   // alert(this.props.DisplayUser.Name)
+   var HisIP = this.props.DisplayUser.IP;
+  // alert(HisIP)
+   var x = await Selects('/Live')
+   x.forEach((obj)=>{          
+       //  alert(obj.IP)
+      //   alert(HisIP)
+    if (obj.IP == HisIP){
+     // alert("Found Live")
+      this.setState({LiveStatus : "Online"})
+    }
+
+
+   })  
+ 
+
+
+  
   }
 
   constructor () {
     super()
     this.state = {
-      Photo : false
+      Photo : false,
+      LiveStatus:""
     }
   }
 
@@ -30,26 +50,24 @@ export default class MyProfile extends Component {
           {!this.state.Photo &&   
           <Image style={styles.avatar} source={{uri: this.props.DisplayUser.Photo}}/>          
           }
-                  
-
+                    
           <View style={styles.body}>
             <View style={styles.bodyContent}>
               <Text style={styles.name}>{this.props.DisplayUser.Name}</Text>
-              <Text style={styles.info}> {this.props.DisplayUser.Role}</Text>
-              <Text></Text>
+              <Text style={styles.info}> {this.state.LiveStatus}</Text>
+
               <Text style={styles.description}>
-              Write Your Story Here
+                 Your Story Here
                </Text>
-               <Text></Text>
-               <Text></Text>
-               <Text></Text>
 
-              
-              <TouchableOpacity style={styles.buttonContainer}>                
-                <Text>Update</Text>  
+
+              <Text></Text>
+              <TouchableOpacity style={styles.buttonContainer} onPress = {()=>{Actions.PreStart()}}>
+                <Text>Invite For Ride</Text>  
               </TouchableOpacity>              
-      
-
+              <TouchableOpacity style={styles.buttonContainer} onPress = {()=> { Actions.UpdateRoom({Partner:this.props.DisplayUser , Me: this.props.Me}) }} >
+                <Text>Message</Text> 
+              </TouchableOpacity>
             </View>
         </View>
       </View>
@@ -65,7 +83,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 130,
     height: 130,
-    borderRadius: 70,
+    borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
     marginBottom:10,
@@ -115,4 +133,3 @@ const styles = StyleSheet.create({
   },
 });
  
-
