@@ -4,12 +4,14 @@ import _ from 'lodash'
 import { StyleSheet, Text, SafeAreaView, ScrollView , Button ,Image, View  , TextInput, CheckBox , Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import MapView from 'react-native-maps';
-import Polyline from '@mapbox/polyline';
 import { Actions } from 'react-native-router-flux';
 import {  Dropdown }  from 'react-native-material-dropdown';
 import * as firebase from 'firebase'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
+import {MagicRoute } from './Firebase/MakeRoute'
+import store from '../redux/store';
+import { connect } from 'react-redux';
+import { addNote } from '../redux/actions';
 
 
 
@@ -19,6 +21,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
       var e = this.props.Info.Email
       var x = e.split(".").join("")
 this.setState({EmailID:x})   
+
        }
   
        constructor () {      
@@ -63,73 +66,7 @@ this.setState({EmailID:x})
          }       
        }  
 
-       async getDirections(startLoc, destinationLoc) {
-
-        //var x = this.state.Coords.latitude + "," + this.state.Coords.longitude  
-        //var y = this.state.TargetCoords.latitude + "," + this.state.TargetCoords.longitude
-        var y = "33.6789915,73.0365766" , x = "32.569918,73.4764472"
-
-       var origin = startLoc.latitude + "," + startLoc.longitude
-       var final =  destinationLoc.latitude + "," + destinationLoc.longitude
-      // console.log(final), //console.log(final)
-
-
-        try {
-          // let resp = await fetch("https://maps.googleapis.com/maps/api/directions/json?origin= " + startLoc.latitude + "," + startLoc.Longitude + "&destination=" + destinationLoc.latitude + "," + destinationLoc.longitude + "&alternatives=true&key=AIzaSyBIYKLT7ZZ4OPggXRf1MHw5tFMIqX93AsA")
-           // let resp = await fetch('https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyBIYKLT7ZZ4OPggXRf1MHw5tFMIqX93AsA')
-           //  axios.get(`https://maps.googleapis.com/maps/api/directions/json?origin=${startLocation.latitude},${startLocation.longitude}&destination=${destination.latitude},${destination.longitude}&mode=walking&key=YOUR_API_KEY`)
-    
-           let resp = await fetch ("https://maps.googleapis.com/maps/api/directions/json?origin= " + origin + "&destination=" + final + "&alternatives=true&key=AIzaSyDVKC6dhp0Y8HU4eIowZA6xG6hHpWj570A")
-
-           let respJson = await resp.json();
-           let points = Polyline.decode(respJson.routes[0].overview_polyline.points);
-           
-           
-           var Distring = respJson.routes[0].legs[0].distance.text
-           var Distray = Distring.split(" ");
-           var Distance = Distray[0] + 0 //Type Conversion
-
-           // 10000 yen
-           var Price = 10000 , i = 0; 
-
-            if(Distance > 10) {
-            var Remaining = Distance - 10; // subtract 10 km
-            console.log(Remaining) 
-            for(i = 0 ; i <= Remaining ; i ++){
-                        Price += 200    // add 200 yen on each km
-            }           
-           }
-        
-
-           console.log(Price)
-           this.setState({Price: this.state.Price + Price})
-          
-
-          this.setState({ Distance:  respJson.routes[0].legs[0].distance.text })  
-          this.setState({ Duration:  respJson.routes[0].legs[0].duration.text })   
-
-    
-            let coordsXY = points.map((point, index) => {
-                return  { latitude : point[0],   longitude : point[1]  }
-            })
-            
-          this.setState({RouteCoordinates: coordsXY , ShowRoute:true })
-
-          setTimeout(() => {
-            this.map.fitToSuppliedMarkers(['mk1' , 'mk2'], {
-              edgePadding: {bottom: 200, right: 50, top: 150, left: 50 },
-              animated: true  }); 
-          }, 500 )
-
-
-           // alert( JSON.stringify(coordsXY));
-    
-            return coordsXY
-        } catch(error) {
-            alert(error)
-            return error
-        }
-    }
+       
 
     
 
@@ -178,13 +115,32 @@ this.setState({EmailID:x})
 
         this.setState({PlacesData : PlacesArray})     
 
-        if(this.state.StartCoords !== null) {               
+        if(this.state.StartCoords != null) {               
 
-           this.getDirections(this.state.StartCoords , this.state.EndCoords)      
+              const Magic = await MagicRoute(this.state.StartCoords , this.state.EndCoords) 
+           
+              this.setState ({ RouteCoordinates: Magic.coordsXY , Distance:Magic.Distance,
+                               Duration:Magic.Duration,   Price:Magic.Price,  ShowRoute:true   })
+
+              this.Markime('mk1' , 'mk2')
+
+
+           
+        
+
+
+
+           
+           
            }
      }
 
 
+      Markime = (Marker1 , Marker2)  => {
+      this.map.fitToSuppliedMarkers([Marker1 , Marker2], {
+        edgePadding: {bottom: 200, right: 50, top: 150, left: 50 },
+        animated: true  }); 
+      }
 
       QueryInfo = async (Type) => {
 
@@ -623,7 +579,12 @@ this.setState({EmailID:x})
     }
 }
 
-export default GPSInfo
+export default connect(
+  null,
+  {
+    addNote: addNote
+  }
+)(GPSInfo);
 
 var StartTry = 1 , EndTry = 1;
 var PlacesArray = [];
