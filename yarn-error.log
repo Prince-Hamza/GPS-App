@@ -1,0 +1,78 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Hamza\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-modal-datetime-picker @react-native-community/datetimepicker
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files\Git\cmd;C:\Program Files\nuget;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Users\Hamza\AppData\Local\Android\Sdk;C:\Program Files\Java\jdk8;C:\Program Files\Java\jre1.8.0_241;C:\Users\Hamza\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Java\jdk8\bin\keytool.exe;C:\Program Files\Java\jdk8\bin;C:\Users\Hamza\AppData\Local\Android\Sdk;C:\Ruby27-x64\bin;C:\Users\Hamza\AppData\Local\Microsoft\WindowsApps;C:\Users\Hamza\AppData\Roaming\npm;C:\Program Files\nuget;C:\Users\Hamza\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Hamza\AppData\Local\Android\Sdk;C:\Program Files\Java\jdk8;C:\Program Files\Java\jre1.8.0_241;c:\Users\Hamza\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Java\jdk8\bin\keytool.exe;C:\Program Files\Java\jdk8\bin;c:\Users\Hamza\AppData\Local\Android\Sdk;
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  13.6.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\Hamza\AppData\Local\Yarn\Cache\v6\npm-pascalcase-0.1.1-b363e55e8006ca6fe21784d2db22bd15d7917f14-integrity\node_modules\pascalcase\.yarn-metadata.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at C:\Users\Hamza\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\Hamza\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\Hamza\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "@mapbox/polyline": "^1.1.0",
+      "axios": "^0.19.2",
+      "expo": "~36.0.0",
+      "expo-app-auth": "~8.0.0",
+      "expo-constants": "^8.0.0",
+      "expo-google-app-auth": "^8.0.1",
+      "expo-location": "^8.0.0",
+      "expo-permissions": "^8.0.0",
+      "expo-server-sdk": "^3.4.0",
+      "firebase": "^7.10.0",
+      "geolib": "^3.2.1",
+      "lodash": "^4.17.15",
+      "native-base": "^2.13.8",
+      "queryfire": "^1.1.0",
+      "react": "~16.9.0",
+      "react-dom": "~16.9.0",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+      "react-native-elements": "^1.2.7",
+      "react-native-geocoding": "^0.4.0",
+      "react-native-gesture-handler": "^1.6.0",
+      "react-native-ionicons": "^5.0.0-beta",
+      "react-native-maps": "^0.26.1",
+      "react-native-maps-directions": "^1.7.4",
+      "react-native-material-dropdown": "^0.11.1",
+      "react-native-open-maps": "^0.3.5",
+      "react-native-public-ip": "^1.0.2",
+      "react-native-radio-input": "^0.9.4",
+      "react-native-reanimated": "^1.7.0",
+      "react-native-router-flux": "^4.2.0",
+      "react-native-screens": "^2.3.0",
+      "react-native-web": "~0.11.7"
+    },
+    "devDependencies": {
+      "babel-preset-expo": "~8.0.0",
+      "@babel/core": "^7.0.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

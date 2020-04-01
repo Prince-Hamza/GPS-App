@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mapapp",
-    "slug": "mapapp",
+    "name": "Call kei Truck",
+    "slug": "mapslug",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -11,20 +11,34 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Rabbity2.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Rabbit.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+    "hooks": {
+  
+    },
+    "ios": {
+      "bundleIdentifier": "com.humzi.GPSApp",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.humzi.GPSApp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBIYKLT7ZZ4OPggXRf1MHw5tFMIqX93AsA"
+        }
+      }
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    }
+    "description": ""
   }
 }

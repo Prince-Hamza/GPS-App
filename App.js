@@ -1,11 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ScarletScreen from './Comps/MainScreen';
-import GrayScreen from './Comps/GrayScreen';
 import { Router, Scene } from 'react-native-router-flux';
 import SignUp from './Comps/SignUp';
 import firebase from 'firebase'
-import GPS from './Comps/GPS.jsx';
+import PreStart from './Comps/PreStart.jsx'
+import Menu from './Comps/Menu';
+import MyProfile from './Comps/MyProfile';
+import Messenger from './Comps/Messenger';
+import RideSearch from './Comps/RideSearch';
+import CustomerSearch from './Comps/CustomerSearch.jsx';
+import ChatRoom from './Comps/ChatRoom.jsx'
+import Destination from './Comps/Destination';
+import Updatish from './Comps/Updatish';
+import JustProfile from './Comps/JustProfile';
+import GPSInfo from './Comps/GPSInfo.jsx'
+import GPS3 from './Comps/GPS3';
+import Invitation from './Comps/Invitation'
+import MapTails from './Comps/MapTails';
+import Admin from './Comps/Admin';
+import StartRide from './Comps/StartRide';
+import Main2 from './Comps/Main2'
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+
+
 
 
 var config = {
@@ -25,6 +45,8 @@ export default function App() {
 
 
   return (
+    <Provider store={store}>
+
     <Router>
       <Scene key="root">
 
@@ -33,11 +55,7 @@ export default function App() {
           title="Home"
           initial
         />
-        <Scene
-          key="gray"
-          component={GrayScreen}
-          title="Gray"
-        />
+   
 
         <Scene
           key="SignUp"
@@ -45,34 +63,103 @@ export default function App() {
           title="Sign Up"
         />
 
+
         <Scene
-          key="GPSTracking"
-          component={GPS}
-          title="GPS Tracking"
+          key="PreStart"
+          component={PreStart}
+          title="Start Your Ride"
+        />
+
+         <Scene
+          key="Destination"
+          component={Destination}
+          title="Choose Your Destination"
         />
 
         <Scene
+          key="GPSInfo"
+          component={GPSInfo}
+          title="GPS Information"
+        />
+
+        <Scene
+          key="GPSTracking"
+          component={GPS3}
+          title="GPS Tracking"
+        />
+
+  
+
+        <Scene
           key="Profile"
-          component={GPS}
+          component={MyProfile}
           title="My Profile"
         />
 
         <Scene
+          key="JustProfile"
+          component={JustProfile}
+          title="User Profile"
+        />
+
+        <Scene
           key="RideSearch"
-          component={GPS}
+          component={RideSearch}
           title="Ride Search"
         />
 
         <Scene
+          key="CustomerSearch"
+          component={CustomerSearch}
+          title="Search Profiles"
+        />
+
+        <Scene
           key="MessagesHistory"
-          component={GPS}
+          component={Messenger}
           title="Messenger"
         />
 
         <Scene
           key="ChatRoom"
-          component={GPS}
+          component={ChatRoom}
           title="Chat"
+        />
+
+         <Scene
+          key="UpdateRoom"
+          component={Updatish}
+          title="Chat"
+        />
+
+        <Scene
+          key="Menu"
+          component={Menu}
+          title="Menu"
+        />
+
+        <Scene
+          key="Invitations"
+          component={Invitation}
+          title="Rides Info"
+        />
+
+        <Scene
+          key="MapTails"
+          component={MapTails}
+          title="Ride View"
+        />
+
+        <Scene
+          key="Admin"
+          component={Admin}
+          title="Admin"
+        />
+
+         <Scene
+          key="StartRide"
+          component={StartRide}
+          title="Start Ride"
         />
 
 
@@ -84,6 +171,7 @@ export default function App() {
 
 
     </Router>
+    </Provider>
   );
 }
 
